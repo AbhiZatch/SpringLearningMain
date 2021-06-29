@@ -2,16 +2,20 @@ package com.learn.springAnnotations;
 
 import java.util.*;
 
-
 public class Test {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String args[]) {
 		
-		ArrayList<Integer> arrLst = new ArrayList<Integer>();
+		LinkedList<String> list = new LinkedList<>();
+		list.add("Hi");
+		list.addFirst("Hello");
+		list.add(0,"abhishek");
+		list.addLast("Who let's");
 		
-		
+		Iterator<String> itr = list.iterator();
+		while(itr.hasNext())
+			System.out.println(itr.next());
+            
 	}
-
 
 }
