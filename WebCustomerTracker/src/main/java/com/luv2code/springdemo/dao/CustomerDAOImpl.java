@@ -43,9 +43,64 @@ public class CustomerDAOImpl implements CustomerDAO {
 		//get current hibernate Session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		//saving to DB
-		currentSession.save(theCustomer);
+		//saving or update to DB
+		currentSession.saveOrUpdate(theCustomer);
 		
+	}
+
+	@Override
+	@Transactional
+	public Customer getCustomers(int theId) {
+		
+		//get the current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		//retrive the data from DB using the primary Key passed in parameter
+		Customer theCustomer = currentSession.get(Customer.class, theId);
+		
+		return theCustomer;
+	}
+
+	@Override
+	@Transactional
+	public void deleteCustomer(int theId) {
+		
+		//get the current session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		//Create a query using HQL to delete customer with primary key(id)
+		Query theQuery = currentSession.createQuery("delete from Customer where id=:customerid");
+		theQuery.setParameter("customerid", theId);
+		
+		theQuery.executeUpdate();
+		
+		/*
+		 * Second way to delete a customer without HQL
+		//get the customer with the id
+		Customer theCustomer = currentSession.get(Customer.class, theId);
+		
+		//delete the customer
+		currentSession.delete(theCustomer);
+		*/
+		
+	}
+
+	@Override
+	@Transactional
+	public List<Customer> getCustomers(String theSearchName) {
+		
+		
+		//get the current session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		//create Query to get the resultList
+		Query theQuery = currentSession.createQuery("from Customer where firstName like :name",
+															Customer.class);
+		theQuery.setParameter("name", theSearchName);
+		
+		List<Customer> theCustomer = theQuery.getResultList();
+		
+		return theCustomer;
 	}
 
 }
