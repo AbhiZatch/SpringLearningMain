@@ -45,10 +45,23 @@
 				
 				<table>
 					<tr>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Email</th>
-						<th>Action</th>
+					
+						<c:url var="sort" value="/customer/sort">
+							<c:param name="sortValue" value="firstName"></c:param>
+						</c:url>
+						<th><a href="${sort}">First Name</a></th>
+						
+						<c:url var="sort" value="/customer/sort">
+							<c:param name="sortValue" value="lastName"></c:param>
+						</c:url>
+						<th><a href="${sort}">Last Name</a></th>
+						
+						<c:url var="sort" value="/customer/sort">
+							<c:param name="sortValue" value="email"></c:param>
+						</c:url>
+						<th><a href="${sort}">Email</a></th>
+						
+						<th><a href="">Action</a></th>
 					</tr>			
 					
 					<!-- loop over and print the customers -->

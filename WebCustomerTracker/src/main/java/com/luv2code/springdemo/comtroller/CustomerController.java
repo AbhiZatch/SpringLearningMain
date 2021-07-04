@@ -26,7 +26,7 @@ public class CustomerController {
 	@GetMapping("/list")
 	public String listCustomers(Model theModel) {
 		
-		//get customers from DAO
+		//get customers from customerService
 		List<Customer> theCustomers = customerService.getCustomers();
 		
 		//add the customers to the model
@@ -84,6 +84,18 @@ public class CustomerController {
 		
 		//add the result to Model
 		theModel.addAttribute("customers",theCustomer);
+		
+		return "list-customers";
+	}
+	
+	@GetMapping("/sort")
+	public String sort(@RequestParam("sortValue") String theSortValue,Model theModel) {
+		
+		
+		List<Customer> theCustomer = customerService.getCustomers("sort",theSortValue);
+		
+		//add attribute to model
+		theModel.addAttribute("customers",theCustomer);		
 		
 		return "list-customers";
 	}

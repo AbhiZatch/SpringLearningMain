@@ -103,4 +103,26 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return theCustomer;
 	}
 
+	@Override
+	@Transactional
+	public List<Customer> getCustomers(String string, String theSortValue) {
+		
+		System.out.println(theSortValue);
+		
+		//get current session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		//create query
+		Query theQuery = currentSession.createQuery("from Customer order by "+theSortValue,
+															Customer.class);
+		
+		//set parameter for Query
+		//theQuery.setParameter("sortValue", theSortValue);
+		
+		//get the result Set
+		List<Customer> theCustomer = theQuery.getResultList();
+		
+		return theCustomer;
+	}
+
 }

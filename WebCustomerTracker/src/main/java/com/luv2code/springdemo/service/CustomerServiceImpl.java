@@ -54,5 +54,14 @@ public class CustomerServiceImpl implements CustomerService {
 		return theCustomer;
 	}
 
+	@Override
+	@Transactional
+	public List<Customer> getCustomers(String string, String theSortValue) {
+		
+		List<Customer> theCustomers = customerDAO.getCustomers(string,theSortValue);
+		
+		return theCustomers;
+	}
+
 
 }
