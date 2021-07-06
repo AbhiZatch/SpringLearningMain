@@ -1,0 +1,89 @@
+package com.luv2code.aopdemo.aspect;
+
+import java.util.List;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+import com.luv2code.aopdemo.Account;
+
+@Aspect
+@Component
+@Order(2)
+public class MyDemoLoggingAspect {
+	
+	
+	@Before("com.luv2code.aopdemo.aspect.AOPExpressions.forDaoPackageNoGetterSetter()")
+	public void beforeAddAccountAdvice(JoinPoint theJoinPoint) {
+		System.out.println("\n---> Executing before advice on addAccount()");
+		
+		//display the method signature
+		MethodSignature methoSig = (MethodSignature) theJoinPoint.getSignature();
+		System.out.println("Method : "+methoSig);
+		
+		//display the method arguments
+		
+		//get the args and then loop thru args
+		Object[] args = theJoinPoint.getArgs();
+		for(Object tempArg:args) {
+			
+			System.out.println(tempArg);
+			
+			//downcast and print account specific stuff
+			if(tempArg instanceof Account) {
+				
+				Account theAccount = (Account) tempArg;
+				System.out.println("Account Name : "+theAccount.getName());
+				System.out.println("Account Level : "+theAccount.getLevel());
+				
+			}
+			
+		}
+		
+	}
+	
+	//add a new advice for @AfterReturning 
+	@AfterReturning(
+			pointcut="execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..))",
+			returning="result")
+	public void afterReturingFindAccountAdvice(JoinPoint theJoinPoint,List<Account> result) {
+		
+		//print out the method on which the advice in performed
+		System.out.println("\n----> Executing @AfterReturning on method");
+		System.out.println(theJoinPoint.getSignature().toShortString());
+		
+		//print out the result
+		System.out.println("------> result is : "+result);
+		
+		//modify/post process the data : 
+		
+		//convert the account names to all upperCase
+		convertAccountNamesToUpperCase(result);
+		
+		//print out the result
+		System.out.println("------> result is : "+result);
+		
+		
+	}
+
+	private void convertAccountNamesToUpperCase(List<Account> result) {
+		
+		//loop in the result and change the names to uppercase
+		for(Account accountTemp : result) {
+			
+			// update the name
+			accountTemp.setName(accountTemp.getName().toUpperCase());
+			
+		}
+		
+		
+		
+	}
+	
+	
+}
