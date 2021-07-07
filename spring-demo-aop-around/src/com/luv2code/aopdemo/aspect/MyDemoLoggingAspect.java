@@ -137,7 +137,7 @@ public class MyDemoLoggingAspect {
 		long duration = end - begin;
 		System.out.println("\n----> Duration "+duration/1000.0 +"seconds");
 		
-		return null;
+		return result;
 		
 	}
 	
