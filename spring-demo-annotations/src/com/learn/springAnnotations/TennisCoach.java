@@ -17,6 +17,7 @@ public class TennisCoach implements Coach {
 	@Qualifier("randomFortunrService")
 	private FortuneService fortuneService;
 	
+	
 	//define an init method:
 	@PostConstruct
 	public void doMyStartupStuff() {
@@ -63,5 +64,6 @@ public class TennisCoach implements Coach {
 		// TODO Auto-generated method stub
 		return fortuneService.getFortune();
 	}
-
+	
+	
 }

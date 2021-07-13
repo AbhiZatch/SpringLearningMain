@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/student")
@@ -22,10 +23,13 @@ public class StudentController {
 	}
 	
 	@RequestMapping("/processForm")
-	public String processForm(@ModelAttribute("student") Student theStudent) {
+	public String processForm(@ModelAttribute("student") Student theStudent,Model theModel) {
 		
 		//log the input data
 		System.out.println(theStudent.getFirstName()+"   "+theStudent.getLastName());
+		String firstname = theStudent.getFirstName().toUpperCase();
+		
+		theModel.addAttribute("message",firstname);
 		
 		return "studentConfirmation";
 	}

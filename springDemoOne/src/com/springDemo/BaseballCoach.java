@@ -5,6 +5,10 @@ public class BaseballCoach implements Coach{
 	//define a private field for the dependency
 	private FortuneService fortuneService;
 	
+	private String myStr;
+	
+	public BaseballCoach() {}
+	
 	//define constructor for dependency injection
 	public BaseballCoach(FortuneService theFortuneService) {
 		fortuneService = theFortuneService;

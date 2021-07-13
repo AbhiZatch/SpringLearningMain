@@ -19,6 +19,7 @@
 			<li> ${temp} </li>
 			</c:forEach>
 		</ul>
-		
+		<br>
+		Upper Case : ${message}
 	</body>
 </html>
